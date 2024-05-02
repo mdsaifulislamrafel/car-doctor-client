@@ -14,6 +14,44 @@ const Booking = () => {
             })
 
     }, [user?.email]);
+
+    const handleDelete = (id) => {
+        fetch(`${url}/bookings/${id}`, {
+            method: "DELETE"
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.deletedCount > 0) {
+                    alert("Deleted successfully");
+                    const newBooking = booking.filter(booking => booking._id !== id);
+                    setBooking(newBooking);
+                }
+            })
+    };
+
+    const handleBookingConfirm = (id) => {
+        fetch(`${url}/bookings/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ status: "confirmed" })
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.modifiedCount > 0) {
+                    alert("Confirmed successfully");
+                    const newBooking = booking.filter(booking => booking._id !== id);
+                    const updated = booking.find(booking => booking._id === id);
+                    updated.status = "confirmed";
+                    const newBook = [updated, ...newBooking];
+                    setBooking(newBook);
+                }
+            })
+    };
+
+
+
     return (
         <div>
             <h2>This is a booking {booking.length}</h2>
@@ -39,6 +77,8 @@ const Booking = () => {
                             booking.map(booking => <BookingRow
                                 key={booking._id}
                                 booking={booking}
+                                handleBookingConfirm={handleBookingConfirm}
+                                handleDelete={handleDelete}
                             ></BookingRow>)
                         }
                     </tbody>

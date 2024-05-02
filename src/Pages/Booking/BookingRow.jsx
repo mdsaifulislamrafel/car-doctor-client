@@ -1,7 +1,7 @@
+/* eslint-disable react/prop-types */
 
 const BookingRow = ({ booking, handleDelete, handleBookingConfirm }) => {
     const { _id, date, name, dueAmount, image: img, status } = booking;
-    console.log(booking);
 
     return (
         <tr>
@@ -24,7 +24,7 @@ const BookingRow = ({ booking, handleDelete, handleBookingConfirm }) => {
             <td>{dueAmount}</td>
             <th>
                 {
-                    status === 'confirm' ? <span className="font-bold text-primary">Confirmed</span> :
+                    status === 'confirmed' ? <span className="font-bold text-primary">Confirmed</span> :
                         <button onClick={() => handleBookingConfirm(_id)} className="btn btn-ghost btn-xs">Please Confirm</button>}
             </th>
         </tr>
