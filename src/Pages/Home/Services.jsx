@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import ServicesCard from "./ServicesCard";
-import { url } from "../../utility/utility";
+import { url } from "../../utility/url";
 
 
 const Services = () => {
