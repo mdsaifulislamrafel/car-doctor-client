@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import ServicesCard from "./ServicesCard";
+import { url } from "../../utility/utility";
+
 
 const Services = () => {
     const [services, setServices] = useState([]);
 
     useEffect(() => {
-        fetch('services.json')
+        fetch(`${url}/services`)
          .then((res) => res.json())
          .then((data) => setServices(data))
     }, [])
